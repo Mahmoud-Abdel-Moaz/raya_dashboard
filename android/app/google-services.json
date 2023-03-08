@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "155718708338",
+    "project_id": "raya-68237",
+    "storage_bucket": "raya-68237.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:155718708338:android:7a5fbfe8074269d96ca6eb",
+        "android_client_info": {
+          "package_name": "com.app.raya_dashboard"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "155718708338-d7lv4612k9p6n91727uci0sqnau1ps77.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAWtIEy8FekNWLTO7yO04cAlyXC6fTH5_M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "155718708338-d7lv4612k9p6n91727uci0sqnau1ps77.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
