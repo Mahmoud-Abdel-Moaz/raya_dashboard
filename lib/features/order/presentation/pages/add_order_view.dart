@@ -19,18 +19,20 @@ class AddOrderScreen extends StatelessWidget {
     OrderCubit orderCubit = OrderCubit.get(context);
     bool isLoading = false;
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: cultured,
       appBar:
       defaultAppBar(title: 'Add Order', context: context, withBack: true),
       body: Padding(
         padding: EdgeInsets.symmetric(vertical: 24.h, horizontal: 16.w),
         child: BlocConsumer<OrderCubit, OrderState>(
           listener: (context, state) {
-           if(state is LoadingAddOrder){
+           if(state is LoadingAddOrderState){
              isLoading=true;
-           }else if(state is LoadedAddOrder){
+           }else if(state is LoadedAddOrderState){
              isLoading=false;
-           }else if(state is ErrorAddOrder){
+             showToast(msg: 'Order Added', state: ToastStates.success);
+             orderCubit.getOrders();
+           }else if(state is ErrorAddOrderState){
              isLoading=false;
              showToast(msg: state.errorMessage, state: ToastStates.error);
            }
@@ -77,7 +79,9 @@ class AddOrderScreen extends StatelessWidget {
                       customTextField(
                         controller: detailsController,
                         context: context,
+                        height: 100.h,
                         hint: 'Order Details',
+                        type: TextInputType.multiline,
                         focusNode: detailsFocusNode,
                         onSubmit: () =>
                             FocusScope.of(context).unfocus(),

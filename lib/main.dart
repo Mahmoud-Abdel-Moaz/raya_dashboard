@@ -5,7 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'core/cache_helper.dart';
 import 'features/order/presentation/bloc/order_cubit.dart';
-import 'features/order/presentation/pages/add_order_view.dart';
+import 'features/order/presentation/pages/order_view.dart';
 
 void main()async{
   WidgetsFlutterBinding.ensureInitialized();
@@ -31,10 +31,9 @@ class MyApp extends StatelessWidget {
         builder: ( context,child) =>const MaterialApp(
           title: 'Raya Dashboard',
           debugShowCheckedModeBanner: false,
-          home: AddOrderScreen(),
+          home: OrderScreen(),
         )
       ),
-
     );
   }
 }

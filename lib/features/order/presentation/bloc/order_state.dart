@@ -9,20 +9,41 @@ class OrderInitial extends OrderState {
   List<Object> get props => [];
 }
 
-class LoadingAddOrder extends OrderState {
+class LoadingAddOrderState extends OrderState {
   @override
   List<Object> get props => [];
 }
 
-class LoadedAddOrder extends OrderState {
+class LoadedAddOrderState extends OrderState {
   @override
   List<Object> get props => [];
 }
 
-class ErrorAddOrder extends OrderState {
+class ErrorAddOrderState extends OrderState {
   final String errorMessage;
 
-  const ErrorAddOrder(this.errorMessage);
+  const ErrorAddOrderState(this.errorMessage);
+  @override
+  List<Object> get props => [errorMessage];
+}
+
+class LoadingOrdersState extends OrderState {
+  @override
+  List<Object> get props => [];
+}
+
+class LoadedOrdersState extends OrderState {
+  final List<Orderr> orders;
+
+  const LoadedOrdersState(this.orders);
+  @override
+  List<Object> get props => [orders];
+}
+
+class ErrorOrdersState extends OrderState {
+  final String errorMessage;
+
+  const ErrorOrdersState(this.errorMessage);
   @override
   List<Object> get props => [errorMessage];
 }

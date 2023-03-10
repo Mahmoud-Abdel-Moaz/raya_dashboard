@@ -90,7 +90,7 @@ AppBar defaultAppBar({
               Navigator.of(context).pop();
             },
         child: Icon(
-          Icons.keyboard_arrow_right,
+          Icons.arrow_back_ios_rounded,
           color: iconColor ?? silverSand,
           size: 20.r,
         ))
@@ -131,7 +131,7 @@ customTextField({
         borderRadius: BorderRadius.circular(12.r),
       ),
       child: TextFormField(
-        style: openSans(16, raisinBlack, FontWeight.w600),
+        style: openSans(14, raisinBlack, FontWeight.w600),
         decoration: InputDecoration(
             isDense: true,
             border: InputBorder.none,
@@ -141,7 +141,7 @@ customTextField({
             contentPadding: EdgeInsets.zero,
             disabledBorder: InputBorder.none,
             hintText: hint,
-            hintStyle: openSans(16, spanishGray, FontWeight.w300)),
+            hintStyle: openSans(14, spanishGray, FontWeight.w300)),
         controller: controller,
         keyboardType: type,
         obscureText: obscureText,

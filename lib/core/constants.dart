@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:intl/intl.dart';
 
 import 'colors.dart';
 import 'font.dart';
@@ -27,6 +28,12 @@ setWhiteStatusBar() {
     statusBarBrightness: Brightness.light, //ios bar icons
     statusBarIconBrightness: Brightness.dark, //ios bar icons
   ));
+}
+
+String convertDate(DateTime dateTime){
+  DateFormat formatter = DateFormat('yyyy-MM-dd HH:mm');
+  String formattedDate = formatter.format(dateTime);
+  return formattedDate;
 }
 
 void navigateTo(context, widget,{void Function()? onBack }) => Navigator.push(

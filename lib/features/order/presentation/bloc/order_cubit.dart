@@ -1,4 +1,3 @@
-import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dio/dio.dart';
@@ -6,11 +5,14 @@ import 'package:equatable/equatable.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../data/models/order_model.dart';
+import '../../domain/entities/order.dart';
+
 part 'order_state.dart';
 
 class OrderCubit extends Cubit<OrderState> {
   OrderCubit() : super(OrderInitial());
-
+  List<Orderr>? orders;
   static OrderCubit get(context) => BlocProvider.of(context);
 
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
@@ -18,13 +20,13 @@ class OrderCubit extends Cubit<OrderState> {
 
   addOrder({required String orderDetails,required String address})async{
     try{
-      emit(LoadingAddOrder());
+      emit(LoadingAddOrderState());
       await _addData(orderDetails: orderDetails,address: address);
       _sendNotification('New Order', orderDetails);
-      emit(LoadedAddOrder());
+      emit(LoadedAddOrderState());
     }catch(e){
       print('Error on add order $e');
-      emit(ErrorAddOrder(e.toString()));
+      emit(ErrorAddOrderState(e.toString()));
     }
   }
 
@@ -37,7 +39,26 @@ class OrderCubit extends Cubit<OrderState> {
       'details': orderDetails,
       'address': address,
       'stats':'new',
+      'created_on':DateTime.now().toString()
     });
+  }
+
+  Future<void> getOrders() async {
+    try {
+      emit(LoadingOrdersState());
+      QuerySnapshot querySnapshot = await _firestore.collection('orders').get();
+      FirebaseMessaging.instance.subscribeToTopic('update_orders').catchError((e){print('error hear subscribeToTopic $e ');});
+
+      orders=[];
+      querySnapshot.docs.forEach((doc) {
+        Map<String,dynamic> map =doc.data()! as Map<String,dynamic>;
+        orders!.add(OrderModel.fromJson(map));
+      });
+      emit(LoadedOrdersState(orders!));
+    } catch (e) {
+      emit(ErrorOrdersState(e.toString()));
+      print('Error getOrders: $e');
+    }
   }
 
 
@@ -76,11 +97,11 @@ class OrderCubit extends Cubit<OrderState> {
       },
       "data": {
         "message": description,
-        "title": 'data',
+        "title": title,
       },
       "to": '/topics/new_orders'
     };
-    FirebaseMessaging.instance.sendMessage();
+  //  FirebaseMessaging.instance.sendMessage();
     String serverKey='AAAAJEGO7HI:APA91bEMZB5B2PuLUpPCJ4CfUhsDQ97rshTyLiIOoWhJUBuKlgoLsb6SaWIogas8lIJPtp9cD2iVbNSRzugz4wrNpG4snduTfvuB-kPuS9VakIz-BGi3WMtYgxdvMfPgQkp8b01EEFeA';
     dio.options.headers['Content-Type'] = 'application/json';
     dio.options.headers["Authorization"] = 'key=$serverKey';
