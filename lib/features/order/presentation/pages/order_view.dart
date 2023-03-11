@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../core/colors.dart';
 import '../../../../core/compnents.dart';
+import '../../../../core/constants.dart';
 import '../../../../core/font.dart';
 import '../../../../core/local_notification_service.dart';
 import '../../domain/entities/order.dart';
@@ -28,6 +29,7 @@ class _OrderScreenState extends State<OrderScreen> {
   }
   @override
   Widget build(BuildContext context) {
+    setDefaultStatusBar();
     OrderCubit orderCubit = OrderCubit.get(context);
     List<Orderr>? orders = orderCubit.orders;
     orderCubit.getOrders();
